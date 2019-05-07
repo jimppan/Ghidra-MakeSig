@@ -25,8 +25,7 @@ public class MakeSig extends GhidraScript
 		Address startAddr = getFunctionStartAddr(func);
 		Address endAddr = getFunctionEndAddr(func);
 
-		println("Finding unique sig for function: " + func.getName());
-		
+		printf("Finding unique sig for function: %s (%s)", func.getName(), func.getSignature().getPrototypeString());
 		boolean found = false;
 		String sig = "";
 
@@ -68,6 +67,12 @@ public class MakeSig extends GhidraScript
 				if(found)
 					break;
 			}
+		}
+		
+		if(!found)
+		{
+			printf("Could not find unique signature.");
+			return;
 		}
 		
 		// Do not print of we cancelled script
